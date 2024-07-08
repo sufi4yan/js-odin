@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://kit.fontawesome.com/cab6f5d047.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+    <main>
+        <form action="" id="newBook">
+            <div class="cont1">
+                <label for="title">Book title</label>
+            <input type="text" id="title" required>
+            </div>
+            <div class="cont2">
+                <label for="author-name">Author name</label>
+                <input type="text" id="author-name" minlength="4" maxlength="40" required>
+            </div>
+           
+            
+            <div class="cont3">
+                <label for="pages">No. of pages</label>
+            <input type="number" id="pages" required min="20" max="999999990909">
+            </div>
+            <div class="cont4">
+                <label for="url">wikipedia URL (optional)</label>
+                <input type="url" id="url">
+            </div>
+            <div class="cont5">
+                <label for="hasRead">Read</label>
+                <input type="checkbox" id="check">
+            </div>
+            <div class="cont6">
+                <button type="submit" id="submit-book" class="submit">Submit</button>
+            </div>
+            <div class="rating">
+                Rating
+            </div>
+            <div class="rating">
+                <i class="fa-regular fa-star star" id="onestar" onclick="rating(`onestar`)"></i>
+                <i class="fa-regular fa-star star" id="twostar" onclick="rating(`twostar`)"></i>
+                <i class="fa-regular fa-star star" id="threestar" onclick="rating(`threestar`)"></i>
+                <i class="fa-regular fa-star star" id="fourstar" onclick="rating(`fourstar`)"></i>
+                <i class="fa-regular fa-star star" id="fivestar" onclick="rating(`fivestar`)"></i>
+            </div>
+            <button class="submit" type="reset" id="rese" onclick="resett()">reset</button>
+        </form>
+        <div class="library" id="library">
+          
+        </div>
+    </main>
+    
+    
+
+
+
+
+    <script src="index.js"></script>
+</body>
+</html>
