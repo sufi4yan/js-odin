@@ -19,11 +19,45 @@ let which = 0
 let hasRead = `no`
 let ratings = 0
 let template = ``
-delButtons = document.querySelectorAll(`.button`)
+
 let num = 0
 found = null
 let count = 0
+//      create elements
 let bookCont = document.createElement(`div`)
+let left = document.createElement(`div`)
+let bookimg = document.createElement(`img`)
+let text = document.createElement(`div`)
+let titledisp = document.createElement(`div`)
+let authordisp = document.createElement(`div`)
+let ratingdisp = document.createElement(`div`)
+let right = document.createElement(`div`)
+let delbut = document.createElement(`button`)
+//// setting relevant classes
+
+bookCont.classList.add(`book`)
+bookCont.classList.add(`anim`)
+left.classList.add(`left`)
+bookimg.classList.add(`book-prev`)
+text.classList.add(`text`)
+titledisp.setAttribute(`id`, `titledisplayed`)
+authordisp.setAttribute(`id`, `authordisplayed`)
+ratingdisp.setAttribute(`id`, `rating`)
+bookimg.setAttribute(`src`, `profile-pic.jpg`)
+right.classList.add(`right`)
+delbut.classList.add(`buttondel`)
+delbut.classList.add(`mama`)
+
+// appending to relevant parents
+
+left.appendChild(bookimg)
+text.appendChild(titledisp)
+text.appendChild(authordisp)
+text.appendChild(ratingdisp)
+left.appendChild(text)
+right.appendChild(delbut)
+bookCont.appendChild(left)
+bookCont.appendChild(right)
 console.log(myLibrary)
 function all(state) {
     num = 0
@@ -57,25 +91,15 @@ function addtoLibrary() {
         myLibrary.push(books)
         localStorage.setItem(`library`, JSON.stringify(myLibrary))
     
-    
         
-        template = `<div class="book anim">
-            <div class="left">
-                <img src="profile-pic.jpg" alt="" class="book-prev">
-            <div class="text">
-                <div id="titledisplayed">${bookTitle.value}</div>
-                <div id="authordisplayed">${authorName.value}</div>
-                <div id="rating">${ratings} stars</div>
-            </div>
-            </div>
-            <div class="right">
-                <button id="deleteBook${num}" class="buttondel mama"></button>
-            </div>
-            </div>`
-        document.getElementById(`library`).innerHTML += template
+        titledisp.textContent = bookTitle.value
+        authordisp.textContent = authorName.value
+        ratingdisp.textContent = `${ratings} stars`
+        
+        console.log(document.getElementById(`library`).appendChild(bookCont))
         num += 1
         console.log(myLibrary)
-        location.reload()
+
     }
     else{
         alert(`This book already exists!`)
@@ -90,20 +114,14 @@ function hello() { myLibrary.forEach((item) => {
         console.log(`animation`)
 
 
-        template = `<div class="book anim">
-        <div class="left">
-            <img src="profile-pic.jpg" alt="" class="book-prev">
-        <div class="text">
-            <div id="titledisplayed">${item.title}</div>
-            <div id="authordisplayed">${item.author}</div>
-            <div id="rating">${item.ratings} stars</div>
-        </div>
-        </div>
-        <div class="right">
-            <button id="deleteBook${num}" class="buttondel mama"></button>
-        </div>
-        </div>`
-    document.getElementById(`library`).innerHTML += template
+        titledisp.textContent = item.title
+        authordisp.textContent = item.author
+        ratingdisp.textContent = `${item.ratings} stars`
+        delbut.setAttribute(`id`, `deleteBook${num}`)
+        
+        document.getElementById(`library`).appendChild(bookCont.cloneNode(true))
+        console.log(document.getElementById(`library`).innerHTML)
+
     
     num += 1
     if (state === `delete`) {
@@ -124,7 +142,7 @@ document.querySelectorAll(`.mama`).forEach((item) => {
         document.getElementById(`library`).innerHTML = ``
         console.log(item.id[item.id.length - 1])
         let itemid = item.id[item.id.length - 1]
-
+        console.log(itemid)
         myLibrary.splice(itemid, 1)
 
         console.log(myLibrary)
