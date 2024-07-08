@@ -21,8 +21,9 @@ let ratings = 0
 let template = ``
 delButtons = document.querySelectorAll(`.button`)
 let num = 0
-found = false
+found = null
 let count = 0
+let bookCont = document.createElement(`div`)
 console.log(myLibrary)
 function all(state) {
     num = 0
@@ -37,7 +38,9 @@ function all(state) {
 
 
 function addtoLibrary() {
-    
+    myLibrary.forEach((item) => {
+        item.title === bookTitle.value ? found = true: found = false
+    })
     if (!found) {
         if (check.checked) {
             hasRead = `yes`
@@ -45,15 +48,15 @@ function addtoLibrary() {
         else{
             hasRead = `no`
         }
-        // console.log(authorName.value)
-        // console.log(bookTitle.value)
-        // console.log(pageQuantity.value)
-        // console.log(hasRead)
+        console.log(authorName.value)
+        console.log(bookTitle.value)
+        console.log(pageQuantity.value)
+        console.log(hasRead)
         let books = new book(authorName.value, bookTitle.value, pageQuantity.value, hasRead, ratings, myLibrary.length)
         
         myLibrary.push(books)
         localStorage.setItem(`library`, JSON.stringify(myLibrary))
-
+    
     
         
         template = `<div class="book anim">
@@ -71,8 +74,8 @@ function addtoLibrary() {
             </div>`
         document.getElementById(`library`).innerHTML += template
         num += 1
-        // console.log(myLibrary)
-
+        console.log(myLibrary)
+        location.reload()
     }
     else{
         alert(`This book already exists!`)
@@ -81,10 +84,10 @@ function addtoLibrary() {
 }
 
 function hello() { myLibrary.forEach((item) => {
-    // console.log(myLibrary)
+    console.log(myLibrary)
 
         
-        // console.log(`animation`)
+        console.log(`animation`)
 
 
         template = `<div class="book anim">
@@ -101,15 +104,15 @@ function hello() { myLibrary.forEach((item) => {
         </div>
         </div>`
     document.getElementById(`library`).innerHTML += template
+    
+    num += 1
     if (state === `delete`) {
         document.querySelector(`.anim`).classList.add(`delete-anim`)
     }
     
-    num += 1
-    
 })
 }
-hello(`normal`)
+hello()
 
 
 
@@ -117,16 +120,24 @@ hello(`normal`)
 
 
 document.querySelectorAll(`.mama`).forEach((item) => {
-    console.log(item.id)
     item.addEventListener(`click`, () => {
-        document.
+        document.getElementById(`library`).innerHTML = ``
+        console.log(item.id[item.id.length - 1])
         let itemid = item.id[item.id.length - 1]
-        
+
         myLibrary.splice(itemid, 1)
-        // console.log(myLibrary)
-        for (let i = 0; i < myLibrary.length; i++){myLibrary[i].ind = i}
+
+        console.log(myLibrary)
+        for (let i = 0; i < myLibrary.length; i++){
+            myLibrary[i].ind = i
+        }
+
         localStorage.setItem(`library`, JSON.stringify(myLibrary))
+        console.log(myLibrary)
+
         all(`delete`)
+        
+
         
     })
 })
@@ -145,15 +156,13 @@ form.onsubmit = function() {
 
 
 }
-all(`normal`)
 function rating(which) {
     which === `onestar` ? which = 1: which === `twostar` ? which = 2 : which === `threestar` ? which = 3: which === `fourstar` ? which = 4: which === `fivestar` ? which = 5:null 
      
     for (let i = 0; i < which; i++) {
         stars[i].classList.remove(`fa-regular`)
         stars[i].classList.add(`fa-solid`)
-    //    console.log(stars[i].classList)
-
+       console.log(stars[i].classList)
        for (let i = which; i <stars.length; i++){
         stars[i].classList.add(`fa-regular`)
         stars[i].classList.remove(`fa-solid`)
@@ -167,3 +176,4 @@ function resett() {
         item.classList.add(`fa-regular`)
         item.classList.remove(`fa-solid`)})
 }
+all()
