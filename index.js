@@ -2,6 +2,7 @@
 
 
 const myLibrary = JSON.parse(localStorage.getItem(`library`)) || []
+
 let submit = document.getElementById(`submit-book`)
 let bookTitle = document.getElementById(`title`)
 let authorName = document.getElementById(`author-name`)
@@ -19,7 +20,7 @@ let which = 0
 let hasRead = `no`
 let ratings = 0
 let template = ``
-
+selectionel = document.getElementById(`hello`)
 let num = 0
 found = null
 let count = 0
@@ -34,8 +35,9 @@ let ratingdisp = document.createElement(`div`)
 let right = document.createElement(`div`)
 let delbut = document.createElement(`button`)
 let editbut = document.createElement(`button`)
+let upper = document.createElement(`div`)
 //// setting relevant classes
-
+upper.classList.add(`upper`)
 bookCont.classList.add(`book`)
 bookCont.setAttribute(`id`, `bookcont`)
 bookCont.classList.add(`anim`)
@@ -45,7 +47,7 @@ text.classList.add(`text`)
 titledisp.setAttribute(`id`, `titledisplayed`)
 authordisp.setAttribute(`id`, `authordisplayed`)
 ratingdisp.setAttribute(`id`, `rating`)
-bookimg.setAttribute(`src`, `profile-pic.jpg`)
+bookimg.setAttribute(`src`, `book.png`)
 right.classList.add(`right`)
 delbut.classList.add(`buttondel`)
 delbut.classList.add(`mama`)
@@ -60,15 +62,18 @@ left.appendChild(bookimg)
 text.appendChild(titledisp)
 text.appendChild(authordisp)
 text.appendChild(ratingdisp)
-left.appendChild(text)
+
 right.appendChild(editbut)
 right.appendChild(delbut)
-bookCont.appendChild(left)
-bookCont.appendChild(right)
+upper.appendChild(left)
+upper.appendChild(right)
+bookCont.appendChild(upper)
+bookCont.appendChild(text)
 console.log(myLibrary)
 
 
-function all(state) {
+function all() {
+    
     document.getElementById(`library`).innerHTML = ``
     num = 0
     function book(author, title, pages, hasRead, rating, ind) {
@@ -116,12 +121,16 @@ function addtoLibrary() {
     }
     
 }
+let libNames = []
+function hello(sort) { 
+    libNames = []
+    copyLib = []
+    num = 0
+    sort.forEach((item) => {
 
-function hello() { myLibrary.forEach((item) => {
-    console.log(myLibrary)
 
         
-        console.log(`animation`)
+
 
 
         titledisp.textContent = item.title
@@ -130,17 +139,68 @@ function hello() { myLibrary.forEach((item) => {
         delbut.setAttribute(`id`, `deleteBook${num}`)
         editbut.setAttribute(`id`, `editBook${num}`)
         document.getElementById(`library`).appendChild(bookCont.cloneNode(true))
-        console.log(document.getElementById(`library`).innerHTML)
 
+        const withoutspace = item.title
+        libNames.push(withoutspace.replaceAll(' ', ''))
+        
+        
+        
     
     num += 1
-    if (state === `delete`) {
-        document.querySelector(`.anim`).classList.add(`delete-anim`)
-    }
+  
+        
+    
     
 })
 }
-hello()
+hello(myLibrary)
+console.log(myLibrary)
+function sortBy() {
+    let copyLib = []
+    console.log(copyLib)
+    myLibrary.forEach((item) => {
+        copyLib.push(item)
+    })
+    console.log(copyLib)
+    console.log(myLibrary)
+    
+    let buffer = null
+    const libNamesSorted = libNames.sort()
+    console.log(libNamesSorted)
+    let i = 0
+    copyLib.forEach((item) => {
+        const withoutspace = item.title
+        const withoutspacereal = withoutspace.replaceAll(' ', '')
+        buffer = copyLib[i]
+        copyLib[i] = copyLib[libNamesSorted.indexOf(withoutspacereal)]
+        copyLib[libNamesSorted.indexOf(withoutspacereal)] = buffer
+        i++
+        console.log(libNamesSorted.indexOf(withoutspacereal))
+    })
+
+    
+    console.log(copyLib)
+    document.getElementById(`library`).innerHTML = ``
+
+    hello(copyLib)
+}
+
+selectionel.addEventListener(`change`, () => {
+    localStorage.setItem(`sorting-mode`, JSON.stringify(selectionel.value))
+    if (selectionel.value === `by-name`) {
+        sortBy()
+    }
+    if (selectionel.value === `least-recent`) {
+        console.log(`hello`)
+        console.log(myLibrary)
+        console.log(copyLib)
+        document.getElementById(`library`).innerHTML = ``
+        hello(myLibrary)
+
+    }
+    
+})
+
 
 
 
@@ -149,6 +209,9 @@ hello()
 
 document.querySelectorAll(`.mama`).forEach((item) => {
     item.addEventListener(`click`, () => {
+        document.querySelectorAll(`.anim`).forEach((item) => {
+            console.log(item)
+        })
         document.getElementById(`library`).innerHTML = ``
         console.log(item.id[item.id.length - 1])
         let itemid = item.id[item.id.length - 1]
@@ -163,7 +226,7 @@ document.querySelectorAll(`.mama`).forEach((item) => {
         localStorage.setItem(`library`, JSON.stringify(myLibrary))
         console.log(myLibrary)
 
-        all(`delete`)
+        all()
         
 
         
@@ -206,7 +269,7 @@ document.querySelectorAll('.edite').forEach((item) => {
         bookContrep.appendChild(rightrep)
         bookContrep.appendChild(cross)
     
-        console.log(myLibrary)
+        console.log(itemid)
         textrep.classList.add(`rightrep`)
         bookContrep.classList.add(`book-rep`)
         cross.classList.add(`cross`)
@@ -233,6 +296,8 @@ document.querySelectorAll('.edite').forEach((item) => {
             const confir = confirm(`Do you want to commit the changes to the book?`)
             if (confir) {
                 myLibrary[itemid].author = authordisprep.value
+                myLibrary[itemid].rating = ratingdisprep.value
+                myLibrary[itemid].title = titledisprep.value
                 console.log(myLibrary[itemid].author)
                 console.log(myLibrary[itemid])
                 localStorage.setItem(`library`, JSON.stringify(myLibrary))
