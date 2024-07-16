@@ -57,13 +57,13 @@ editbut.classList.add(`edite`)
 
 
 // appending to relevant parents
-
-left.appendChild(bookimg)
+editbut.appendChild(bookimg)
+left.appendChild(editbut)
 text.appendChild(titledisp)
 text.appendChild(authordisp)
 text.appendChild(ratingdisp)
 
-right.appendChild(editbut)
+
 right.appendChild(delbut)
 upper.appendChild(left)
 upper.appendChild(right)
@@ -84,7 +84,19 @@ function all() {
     this.ratings = ratings,
     this.ind = ind
 }
-
+check.addEventListener(`change`, () => {
+    ratingCont = document.querySelectorAll(`.ratingcont`)
+    ratingCont.forEach((item) => {
+        if (check.checked) {
+            item.setAttribute(`style`, `display:block`)
+        }
+        else{
+            item.setAttribute(`style`, `display:none`)
+            ratings = 0
+        }
+        
+    })
+})
 
 function addtoLibrary() {
     myLibrary.forEach((item) => {
@@ -122,20 +134,23 @@ function addtoLibrary() {
     
 }
 let libNames = []
-function hello(sort) { 
+function hello(sort) {
+    
     libNames = []
     copyLib = []
     num = 0
     sort.forEach((item) => {
-
-
-        
-
-
-
+        ratingdisp.textContent = ''
         titledisp.textContent = item.title
         authordisp.textContent = item.author
-        ratingdisp.textContent = `${item.ratings} stars`
+        console.log(item.ratings)
+        for (let i = 0; i < item.ratings; i++) {
+            solidStar = one
+            solidStar.classList.add(`fa-solid`)
+            ratingdisp.appendChild(solidStar.cloneNode(true))
+            solidStar.classList.remove(`fa-solid`)
+            console.log(`ok`)
+        }
         delbut.setAttribute(`id`, `deleteBook${num}`)
         editbut.setAttribute(`id`, `editBook${num}`)
         document.getElementById(`library`).appendChild(bookCont.cloneNode(true))
@@ -222,7 +237,6 @@ document.querySelectorAll(`.mama`).forEach((item) => {
         for (let i = 0; i < myLibrary.length; i++){
             myLibrary[i].ind = i
         }
-        
         localStorage.setItem(`library`, JSON.stringify(myLibrary))
         console.log(myLibrary)
 
@@ -277,15 +291,37 @@ document.querySelectorAll('.edite').forEach((item) => {
         bookContrep.classList.add(`anim`)
         leftrep.classList.add(`leftrep`)
         rightrep.classList.add(`rightrep`)
-        bookimgrep.classList.add(`book-prev`)
+
         textrep.classList.add(`text`)
         titledisprep.setAttribute(`value`, myLibrary[itemid].title)
-        titledisprep.setAttribute(`id`, `titledisplayed`)
-        authordisprep.setAttribute(`id`, `authordisplayed`)
-        ratingdisprep.setAttribute(`id`, `rating`)
+        titledisprep.setAttribute(`id`, `titledisplayedprep`)
+        authordisprep.setAttribute(`id`, `authordisplayedprep`)
+        ratingdisprep.setAttribute(`id`, `ratingprep`)
         authordisprep.setAttribute(`value`, myLibrary[itemid].author)
         ratingdisprep.setAttribute(`value`, myLibrary[itemid].ratings)
-        bookimgrep.setAttribute(`src`, `profile-pic.jpg`)
+        ratingdisprep.setAttribute(`type`, `number`)
+        ratingdisprep.setAttribute(`max`, `5`)
+        ratingdisprep.setAttribute(`onkeydown`, `return false`)
+        ratingdisprep.setAttribute(`min`, `0`)
+        
+        ratingdisprep.style.display = `none`
+        check.addEventListener(`change`, () => {
+                if (check.checked) {
+                    item.setAttribute(`style`, `display:block`)
+                    
+                }
+                else{
+                    item.setAttribute(`style`, `display:none`)
+                    ratings = 0
+                }
+        })
+
+        if (myLibrary[itemid].hasRead === `yes`) {
+            checkbo.checked = true
+            ratingdisprep.style.display = `block`
+        }
+        
+
         console.log(`hello`)
         document.querySelector(`body`).appendChild(bookContrep)
         editsub.classList.add(`submit-edit`)
@@ -296,9 +332,12 @@ document.querySelectorAll('.edite').forEach((item) => {
             const confir = confirm(`Do you want to commit the changes to the book?`)
             if (confir) {
                 myLibrary[itemid].author = authordisprep.value
-                myLibrary[itemid].rating = ratingdisprep.value
+                myLibrary[itemid].ratings = Number(ratingdisprep.value)
                 myLibrary[itemid].title = titledisprep.value
-                console.log(myLibrary[itemid].author)
+                if (checkbo.checked) {
+                    myLibrary[itemid].hasRead = `yes`
+                }
+                console.log(myLibrary[itemid].rating)
                 console.log(myLibrary[itemid])
                 localStorage.setItem(`library`, JSON.stringify(myLibrary))
                 all()
@@ -310,7 +349,12 @@ document.querySelectorAll('.edite').forEach((item) => {
 })
 
 
-
+document.getElementById('scrollDownBtn').addEventListener('click', function() {
+    window.scrollBy({
+      top: window.innerHeight - 100,
+      behavior: 'smooth'
+    });
+  });
 
 
 
@@ -339,5 +383,10 @@ function resett() {
     stars.forEach((item) => {
         item.classList.add(`fa-regular`)
         item.classList.remove(`fa-solid`)})
+        ratingCont.forEach((item) => {
+            item.style.display = `none`
+        })
 }
+
+
 all()

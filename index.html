@@ -8,61 +8,84 @@
     <script src="https://kit.fontawesome.com/cab6f5d047.js" crossorigin="anonymous"></script>
 </head>
 <body>
-
-    <main>
-        <form action="" id="newBook">
-            <div class="cont1">
-                <label for="title">Book title</label>
-            <input type="text" id="title" required>
-            </div>
-            <div class="cont2">
-                <label for="author-name">Author name</label>
-                <input type="text" id="author-name" minlength="4" maxlength="40" required>
-            </div>
-           
+    <nav>
+        <ul>
+            <li><i class="fa-regular fa-circle-user" ></i></li>
+            <li>profile</li>
+            <li>Your collection</li>
+        </ul>
+        <ul>
+            <li>About us</li>
+            <li>Settings</li>
+        </ul>
+    
+    </nav>
+    <header>
+        <div class="left">
+            <div class="over-head"></div>
+            <h1>The Novel tracker you need.</h1>
+            <p>Now with a better UI and some exciting new features! <a href="#">Click here</a> to find out more.</p>
+            <button id="scrollDownBtn">Go to library</button>
             
-            <div class="cont3">
-                <label for="pages">No. of pages</label>
-            <input type="number" id="pages" required min="20" max="999999990909">
-            </div>
-            <div class="cont4">
-                <label for="url">Wikipedia URL (optional)</label>
-                <input type="url" id="url">
-            </div>
-            <div class="cont5">
-                <label for="hasRead">Read</label>
-                <input type="checkbox" id="check">
-            </div>
-            <div class="cont6">
-                <button type="submit" id="submit-book" class="submit">Submit</button>
-            </div>
-            <div class="rating">
-                Rating
-            </div>
-            <div class="rating">
-                <i class="fa-regular fa-star star" id="onestar" onclick="rating(`onestar`)"></i>
-                <i class="fa-regular fa-star star" id="twostar" onclick="rating(`twostar`)"></i>
-                <i class="fa-regular fa-star star" id="threestar" onclick="rating(`threestar`)"></i>
-                <i class="fa-regular fa-star star" id="fourstar" onclick="rating(`fourstar`)"></i>
-                <i class="fa-regular fa-star star" id="fivestar" onclick="rating(`fivestar`)"></i>
-            </div>
-            <button class="submit" type="reset" id="rese" onclick="resett()">Reset</button>
-            <select name="language" id="hello">
-                <option value="least-recent">T0: most recent</option>
-                <option value="by-name" selected>By name A - Z</option>
-              </select>
-        </form>
-    
-        
-        <div class="librar" id="library">
-          
         </div>
-    </main>
+
+    </header>
     
-    
+    <div class="hero">
+        <main>
+            <h1 style="text-align: center;">
+                Start your reading journey by entering some books.
+            </h1>
 
-
-
+            <form action="" id="newBook">
+                <div class="cont1">
+                    <label for="title">Book title</label>
+                <input type="text" id="title" required>
+                </div>
+                <div class="cont2">
+                    <label for="author-name">Author name</label>
+                    <input type="text" id="author-name" minlength="4" maxlength="40" required>
+                </div>
+               
+                
+                <div class="cont3">
+                    <label for="pages">No. of pages</label>
+                <input type="number" id="pages" required min="20" max="999999990909">
+                </div>
+                <div class="cont4">
+                    <label for="url">Wikipedia URL (optional)</label>
+                    <input type="url" id="url">
+                </div>
+                <div class="cont5">
+                    <label for="hasRead">Read</label>
+                    <input type="checkbox" id="check">
+                </div>
+                <div class="cont6">
+                    <button type="submit" id="submit-book" class="submit">Submit</button>
+                </div>
+                <div class="rating ratingcont" >
+                    Rating
+                </div>
+                <div class="rating ratingcont" id="ratingcont">
+                    <i class="fa-regular fa-star star" id="onestar" onclick="rating(`onestar`)"></i>
+                    <i class="fa-regular fa-star star" id="twostar" onclick="rating(`twostar`)"></i>
+                    <i class="fa-regular fa-star star" id="threestar" onclick="rating(`threestar`)"></i>
+                    <i class="fa-regular fa-star star" id="fourstar" onclick="rating(`fourstar`)"></i>
+                    <i class="fa-regular fa-star star" id="fivestar" onclick="rating(`fivestar`)"></i>
+                </div>
+                <button class="submit" type="reset" id="rese" onclick="resett()">Reset</button>
+                <select name="language" id="hello">
+                    <option value="least-recent">T0: most recent</option>
+                    <option value="by-name" selected>By name A - Z</option>
+                  </select>
+            </form>
+        
+            
+            <div class="librar" id="library">
+              
+            </div>
+        </main>
+    </div>
 
     <script src="index.js"></script>
 </body>
