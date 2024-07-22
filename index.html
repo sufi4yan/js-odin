@@ -2,23 +2,84 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" >
     <title>Document</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="src/styles/styles.css">
     <script src="https://kit.fontawesome.com/cab6f5d047.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <nav>
         <ul>
-            <li><i class="fa-regular fa-circle-user" ></i></li>
-            <li>profile</li>
-            <li>Your collection</li>
+            
+
+            <li>
+            <label for="profilepop" class="label-profile">
+                <i class="fa-regular fa-circle-user" ></i>
+                <label for="profilepop"><p id="profile-name">profile</p></label>
+            </label>
+            <input type="checkbox" name="" id="profilepop">
+            
+                
+                <div class="popup">
+                    <div class="row1">
+                        <div class="pfp">
+                            <img src="src/assets/profile-pic.jpg" alt="">
+                            <div class="info">
+                                <p><label for="name">Profile name</label></p>
+                                <div class="one-info">
+                                    <input type="text" name="" id="name">
+                                    <span>X</span>
+                                </div>
+                                <p><label for="username">Username</label></p>
+                                <div class="one-info">
+
+                                    <input type="text" name="" id="username">
+                                    <span>X</span>
+                                </div>
+                                <p><label for="email">Email</label></p>
+                                <div class="one-info">
+                                    <input type="email" name="" id="email">
+                                    <span>X</span>
+
+                                </div>
+                               
+                                
+                            
+
+                            </div>
+                            
+                        </div>
+                    <label for="profilepop" class="cross-button">X</label>
+                    </div>
+                    <div class="row12">
+                        <section>
+                            <h5 style="margin-bottom: 10px;">Bio</h5>
+                        <textarea name="" id="about"></textarea>
+                        </section>
+                        <section>
+                            <h5 style="margin-bottom: 10px;">More info</h5>
+                        <textarea name="" id="more info"></textarea>
+                        </section>
+                        
+                    </div>
+                    <div class="row2">
+                        <div><button class="pfp-button">Change profile photo</button></div>
+                        <div><button class="change-details pfp-button">Submit changes</button></div>
+                        <div><button class="pfp-button log-out">Log Out</button></div>
+                        
+                    </div>
+                    
+                </div>
+                <label for="profilepop"><div class="" id="overl"></div></label>
+                
+            </li>
+            <li style="text-wrap: nowrap;">Your collection</li>
         </ul>
         <ul>
             <li>About us</li>
             <li>Settings</li>
         </ul>
-    
+        
     </nav>
     <header>
         <div class="left">
@@ -33,7 +94,7 @@
     
     <div class="hero">
         <main>
-            <h1 style="text-align: center;">
+            <h1 style="text-align: center; ">
                 Start your reading journey by entering some books.
             </h1>
 
@@ -61,12 +122,12 @@
                     <input type="checkbox" id="check">
                 </div>
                 <div class="cont6">
-                    <button type="submit" id="submit-book" class="submit">Submit</button>
+                    <button type="submit" id="submit-book" class="submit">Add to library</button>
                 </div>
-                <div class="rating ratingcont" >
+                <div class="rating ratingcont" style="display: none;">
                     Rating
                 </div>
-                <div class="rating ratingcont" id="ratingcont">
+                <div class="rating ratingcont" id="ratingcont" style="display: none;" >
                     <i class="fa-regular fa-star star" id="onestar" onclick="rating(`onestar`)"></i>
                     <i class="fa-regular fa-star star" id="twostar" onclick="rating(`twostar`)"></i>
                     <i class="fa-regular fa-star star" id="threestar" onclick="rating(`threestar`)"></i>
@@ -74,19 +135,30 @@
                     <i class="fa-regular fa-star star" id="fivestar" onclick="rating(`fivestar`)"></i>
                 </div>
                 <button class="submit" type="reset" id="rese" onclick="resett()">Reset</button>
-                <select name="language" id="hello">
+                <select name="language" id="hello" style="display: none;">
                     <option value="least-recent">T0: most recent</option>
                     <option value="by-name" selected>By name A - Z</option>
                   </select>
             </form>
-        
-            
-            <div class="librar" id="library">
-              
+            <div class="buttoncont">
+                <div><button class="pfp-button log-out select-buttons" id="all">All</button></div>
+                <div><button class="pfp-button select-buttons" id="read">Read</button></div>
+                <div><button class="change-details pfp-button select-buttons" id="unread">Unread</button></div>
+                
             </div>
+           
+            <div class="searchcont">
+                
+            </div>
+                <div class="librar" id="library">
+
+                    <h2>No books are present in your library at the moment.</h2>
+                    </div>
+            
+            
         </main>
     </div>
-
-    <script src="index.js"></script>
+    
+    <script src="src/index.js" type="module"></script>
 </body>
 </html>
